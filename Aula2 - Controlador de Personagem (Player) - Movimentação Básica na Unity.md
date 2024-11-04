@@ -28,7 +28,7 @@ Para controlar o movimento do Player, usaremos o componente `CharacterController
 
 ### O que é o `CharacterController`?
 
-O `CharacterController` é um componente que permite mover um objeto de forma controlada, usando métodos como `SimpleMove` e `Move`. Ele possui colisores embutidos que facilitam a criação de um movimento básico sem precisar programar a física detalhada.
+O `CharacterController` é um componente que permite mover um objeto de forma controlada, usando métodos como `SimpleMove` e `Move`. Ele possui colisores embutidos que facilitam a criação de um movimento básico sem precisar programar a física detalhada. Toda vez que precisarmos criar um personagem controlável, podemos usar o CharacterController!
 
 ---
 
