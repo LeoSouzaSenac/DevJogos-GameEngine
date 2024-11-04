@@ -140,7 +140,3 @@ Nesta aula, você aprendeu a:
 - Usar o `SimpleMove` para mover o Player na cena.
 
 Na próxima aula, vamos explorar colisões e como interagir com o ambiente usando física básica na Unity!
-
---- 
-
-Espero que este formato seja útil e instrutivo para sua turma!
