@@ -1,7 +1,3 @@
-Aqui está o conteúdo para a Aula 1 em formato `.md`, com uma abordagem clara e didática, detalhando cada passo para que os alunos consigam acompanhar.
-
----
-
 # Aula 1: Introdução à Unity - Criando o Primeiro Projeto e Configurando a Cena
 
 ## Objetivo
@@ -125,6 +121,3 @@ Nesta primeira aula, aprendemos a:
 
 Na próxima aula, vamos criar um script para movimentar o Player usando o teclado. Prepare-se para aprender a programar interações básicas com o ambiente da Unity!
 
---- 
-
-Este guia passo a passo garante que os alunos entendam cada ação e configuração da Unity, estabelecendo uma base sólida para as próximas aulas.
