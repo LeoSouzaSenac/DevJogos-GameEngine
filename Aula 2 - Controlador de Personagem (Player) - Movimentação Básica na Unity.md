@@ -47,17 +47,24 @@ O `CharacterController` é um componente que permite mover um objeto de forma co
 Agora vamos programar o movimento do jogador. Abra o script `PlayerMovement` para edição e substitua o conteúdo pelo código abaixo:
 
 ```csharp
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))] // Assegura que o CharacterController está presente
 public class PlayerMovement : MonoBehaviour
 {
     public float speed = 6.0f; // Velocidade de movimento do Player
+    
     private CharacterController controller; // Referência ao CharacterController
 
+    
+    //O método Start() é chamado UMA VEZ assim que o jogo começa
     void Start()
     {
+        
         // Obtém o componente CharacterController que está anexado ao Player
+        //GetComponent significa "Pegar componente"
         controller = GetComponent<CharacterController>();
     }
 
