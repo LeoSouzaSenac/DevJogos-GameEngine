@@ -139,10 +139,108 @@ void Update()
 
 ---
 
-## Resumo
+Para adicionar o efeito de piscar em vermelho na barra de vida, precisamos fazer algumas modificações no script `PlayerStats` e adicionar uma referência ao componente `Image` da barra de vida.
 
-Nesta aula, criamos um sistema para exibir a vida e a pontuação do jogador na tela. Aprendemos como:
+Aqui estão as instruções para adicionar esse efeito ao código que você já tem:
 
-- Adicionar uma barra de vida e um contador de pontuação usando o sistema de UI da Unity.
-- Vincular esses elementos ao script do personagem.
-- Controlar a atualização da barra de vida e do texto de pontuação ao longo do jogo.
+1. **Adicionar o Campo `healthBarFill`**: Esse campo vai referenciar a parte da barra de vida que preenche a barra e permite alterar a cor.
+
+2. **Armazenar a Cor Original**: Precisamos da cor original da barra de vida para restaurá-la depois que ela piscar em vermelho.
+
+3. **Criar uma Corrotina `FlashRed`**: Essa corrotina muda a cor para vermelho, espera um curto período e depois restaura a cor original.
+
+Aqui está o código completo atualizado com essas modificações:
+
+```csharp
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+public class PlayerStats : MonoBehaviour
+{
+    public int maxHealth = 100; // Vida máxima
+    public int currentHealth; // Vida atual do personagem
+    public int score = 0; // Pontuação do jogador
+
+    public Slider healthBar; // Referência à barra de vida
+    public TMP_Text scoreText; // Referência ao texto de pontuação
+    public Image healthBarFill; // A parte que preenche a barra para alterar a cor
+
+    private Color originalColor; // Cor original da barra
+    private bool isFlashing = false; // Controla se está piscando
+    private float flashDuration = 0.2f; // Duração do efeito de piscar
+
+    void Start()
+    {
+        // Define a vida inicial como o valor máximo e configura a barra de vida
+        currentHealth = maxHealth;
+        healthBar.maxValue = maxHealth;
+        healthBar.value = currentHealth;
+        
+        // Guarda a cor original da barra
+        if (healthBarFill != null)
+        {
+            originalColor = healthBarFill.color;
+        }
+        
+        UpdateScoreText();
+    }
+
+    // Método para reduzir a vida e iniciar o efeito de piscar
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.value = currentHealth;
+
+        // Se a vida ainda está acima de zero e não está piscando, inicie o efeito
+        if (currentHealth > 0 && !isFlashing && healthBarFill != null)
+        {
+            StartCoroutine(FlashRed());
+        }
+    }
+
+    // Método para adicionar pontos
+    public void AddScore(int points)
+    {
+        score += points;
+        UpdateScoreText();
+    }
+
+    // Atualiza o texto da pontuação
+    void UpdateScoreText()
+    {
+        scoreText.text = "Pontuação: " + score;
+    }
+
+    // Corrotina para fazer a barra piscar em vermelho
+    private IEnumerator FlashRed()
+    {
+        isFlashing = true; // Define como piscando
+        healthBarFill.color = Color.red; // Muda a cor para vermelho
+
+        yield return new WaitForSeconds(flashDuration); // Aguarda o tempo de piscada
+
+        healthBarFill.color = originalColor; // Restaura a cor original
+        isFlashing = false; // Define como não piscando
+    }
+}
+```
+
+### Explicação das Alterações
+
+- **`healthBarFill`**: Agora há uma referência para o `Image` que preenche a barra. Certifique-se de arrastar o `Image` da barra de vida no editor para esse campo.
+  
+- **`FlashRed`**: A corrotina `FlashRed` é chamada cada vez que `TakeDamage` é executado e pisca a barra em vermelho, voltando depois à cor original.
+
+- **Controle `isFlashing`**: O `isFlashing` impede que o efeito de piscada seja sobreposto caso o jogador sofra dano continuamente.
+
+### Como Configurar no Editor
+
+1. No **Inspector** da Unity, encontre o seu objeto `Player` com o componente `PlayerStats`.
+2. Arraste o `Image` da parte de preenchimento da barra de vida para o campo `healthBarFill` no componente `PlayerStats`.
+
+### Teste o Efeito
+
+1. Execute o jogo.
+2. Diminua a vida do jogador (por exemplo, tocando em um obstáculo).
+3. Observe a barra de vida piscando em vermelho a cada dano.
