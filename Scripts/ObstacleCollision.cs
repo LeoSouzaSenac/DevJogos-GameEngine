@@ -13,9 +13,14 @@ public class ObstacleCollision : MonoBehaviour
     {
         if (hit.gameObject.CompareTag("Obstáculo"))
         {
-            playerStats.TakeDamage(10); // -----------------------
+            playerStats.TakeDamage(1); // -----------------------
             //health -= 20;  // Reduz a vida
             //Debug.Log("Colidiu com obstáculo! Vida: " + health);
         }
     }
 }
+
+
+
+
+
