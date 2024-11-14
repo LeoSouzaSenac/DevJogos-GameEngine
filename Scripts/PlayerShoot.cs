@@ -5,6 +5,14 @@ public class PlayerShoot : MonoBehaviour
     public GameObject projectilePrefab; // Prefab do projétil
     public Transform shootPoint; // Ponto de onde o projétil será lançado
     public float projectileSpeed = 20f; // Velocidade do projétil
+
+    public AudioClip shootSound;
+    private AudioSource audioSource;
+    
+    void Start() {
+        audioSource = gameObject.AddComponent<AudioSource>();
+    }
+
     void Update()
     {
         // Verifica se o jogador pressionou a tecla para disparar (pode ser "Espaço")
@@ -24,6 +32,8 @@ public class PlayerShoot : MonoBehaviour
         if (rb != null)
         {
             rb.velocity = transform.forward * projectileSpeed; // Define a velocidade do projétil
+            audioSource.PlayOneShot(shootSound);
         }
+
     }
 }
